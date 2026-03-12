@@ -1,0 +1,128 @@
+{
+  "results": [
+    {
+      "name": "Predictable Tokens",
+      "description": "SecureBank prides itself on its \"secure\" authentication system. You've been given access to a test account to evaluate their session management.\n\nCan you gain access to the admin dashboard?\n\n**Test credentials:** guest/guest123, alice/alice456, bob/bob789\n\n**URL:** [REPLACE_WITH_CHALLENGE_URL]\n\n---\n*Vulnerability Class: Session Management*\n*Estimated Time: 10-15 minutes*",
+      "category": "Session Management",
+      "value": 100,
+      "type": "standard",
+      "state": "visible",
+      "max_attempts": 0,
+      "flags": [
+        {
+          "type": "static",
+          "content": "flag{pr3d1ct4bl3_t0k3ns_4r3_n0t_s3cur3}",
+          "data": ""
+        }
+      ],
+      "hints": [
+        {
+          "content": "What does your session cookie contain? Try decoding it with CyberChef or the browser console (atob function).",
+          "cost": 50
+        },
+        {
+          "content": "How are user IDs assigned? Is there a pattern? What might the admin's ID be?",
+          "cost": 50
+        }
+      ],
+      "tags": ["session", "encoding", "cookie", "OWASP-A07", "CWE-330"],
+      "files": [],
+      "requirements": null
+    },
+    {
+      "name": "The Undying Session",
+      "description": "ACME Corp's Incident Response Portal contains classified security reports. You're an analyst with limited access, but you've heard rumors about a past security incident.\n\nMaybe there's something useful in the incident reports?\n\n**Test credentials:** guest/guest123, analyst/analyst456, intern/intern789\n\n**URL:** [REPLACE_WITH_CHALLENGE_URL]\n\n---\n*Vulnerability Class: Session Management*\n*Estimated Time: 10-15 minutes*",
+      "category": "Session Management",
+      "value": 100,
+      "type": "standard",
+      "state": "visible",
+      "max_attempts": 0,
+      "flags": [
+        {
+          "type": "static",
+          "content": "flag{s3ss10ns_sh0uld_3xp1r3_s0m3t1m3}",
+          "data": ""
+        }
+      ],
+      "hints": [
+        {
+          "content": "Read the incident reports carefully. What was marked 'resolved' that maybe shouldn't have been?",
+          "cost": 50
+        },
+        {
+          "content": "Session tokens found in logs should be rotated immediately. Does that token still work?",
+          "cost": 50
+        }
+      ],
+      "tags": ["session", "replay", "expiration", "OWASP-A07", "CWE-613"],
+      "files": [],
+      "requirements": null
+    },
+    {
+      "name": "Logout is a Lie",
+      "description": "DevPay's employee portal has \"military-grade\" security and a \"secure logout\" feature. You have access to a manager account for testing.\n\nLog in, capture your session, log out, and verify the session is truly terminated.\n\n**Test credentials:** developer/dev2026!, tester/test123, manager/manage456\n\n**URL:** [REPLACE_WITH_CHALLENGE_URL]\n\n---\n*Vulnerability Class: Session Management*\n*Estimated Time: 10-15 minutes*",
+      "category": "Session Management",
+      "value": 150,
+      "type": "standard",
+      "state": "visible",
+      "max_attempts": 0,
+      "flags": [
+        {
+          "type": "static",
+          "content": "flag{l0g0ut_sh0uld_k1ll_s3rv3r_s3ss10n}",
+          "data": ""
+        }
+      ],
+      "hints": [
+        {
+          "content": "Use Burp Suite to capture your session token BEFORE clicking logout.",
+          "cost": 50
+        },
+        {
+          "content": "After logout, what happens if you manually set the auth_token cookie back to your captured value?",
+          "cost": 50
+        },
+        {
+          "content": "Check /debug/sessions before and after logout. Does the count change?",
+          "cost": 25
+        }
+      ],
+      "tags": ["session", "logout", "invalidation", "OWASP-A07", "CWE-613"],
+      "files": [],
+      "requirements": null
+    },
+    {
+      "name": "Token Entropy Crisis",
+      "description": "**EXTRA CREDIT**\n\nSecureOps uses \"industry-standard MD5 hashing\" for their session tokens. The admin is currently logged in, and you need access to the Secure Vault.\n\nYou have analyst-level access. Study the system, understand the token generation, and find a way to forge or predict the admin's token.\n\n**Test credentials:** analyst/analyst2026, operator/oper@t0r!, auditor/aud1t123\n\n**URL:** [REPLACE_WITH_CHALLENGE_URL]\n\n---\n**This challenge requires writing a Python script. Include your script in your submission.**\n\n*Vulnerability Class: Session Management / Cryptographic Weakness*\n*Estimated Time: 30-45 minutes*",
+      "category": "Session Management",
+      "value": 300,
+      "type": "standard",
+      "state": "visible",
+      "max_attempts": 0,
+      "flags": [
+        {
+          "type": "static",
+          "content": "flag{3ntr0py_m4tt3rs_1000_1s_n0t_3n0ugh}",
+          "data": ""
+        }
+      ],
+      "hints": [
+        {
+          "content": "The audit logs contain more than just text. Look for specific values that might be useful.",
+          "cost": 75
+        },
+        {
+          "content": "How much entropy does random(0-999) really provide? Is 1000 possibilities a lot for a computer?",
+          "cost": 75
+        },
+        {
+          "content": "You know the username ('admin'), you know the timestamp (from logs). What's left to brute-force?",
+          "cost": 50
+        }
+      ],
+      "tags": ["session", "entropy", "brute-force", "md5", "scripting", "OWASP-A07", "CWE-330", "CWE-331"],
+      "files": [],
+      "requirements": null
+    }
+  ]
+}

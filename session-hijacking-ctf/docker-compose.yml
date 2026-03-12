@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  predictable-tokens:
+    build: ./challenge1-predictable-tokens
+    container_name: session-ch1-predictable
+    ports:
+      - "5001:5000"
+    environment:
+      - FLAG=flag{xxxx}
+      - ADMIN_PASS=Sup3rS3cr3tAdm1nP@ss!
+    restart: unless-stopped
+    networks:
+      - ctf-network
+
+  undying-session:
+    build: ./challenge2-undying-session
+    container_name: session-ch2-undying
+    ports:
+      - "5002:5000"
+    environment:
+      - FLAG=flag{xxxx}
+    restart: unless-stopped
+    networks:
+      - ctf-network
+
+  logout-lie:
+    build: ./challenge3-logout-lie
+    container_name: session-ch3-logout
+    ports:
+      - "5003:5000"
+    environment:
+      - FLAG=flag{xxxx}
+    restart: unless-stopped
+    networks:
+      - ctf-network
+
+  entropy-crisis:
+    build: ./challenge4-entropy-crisis
+    container_name: session-ch4-entropy
+    ports:
+      - "5004:5000"
+    environment:
+      - FLAG=flag{xxxx}
+    restart: unless-stopped
+    networks:
+      - ctf-network
+
+networks:
+  ctf-network:
+    driver: bridge
